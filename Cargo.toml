@@ -1,0 +1,24 @@
+[package]
+name = "rusty_a11y"
+version = "0.1.0"
+authors = ["Remade With Rust / Mata Network"]
+description = "ARIA HTML helpers for Rust UI chrome — labelled glyphs, live regions, status (Remade With Rust)"
+repository = "https://github.com/Remade-With-Rust/rusty_a11y"
+documentation = "https://docs.rs/rusty_a11y"
+homepage = "https://github.com/Remade-With-Rust/rusty_a11y"
+license = "MIT"
+keywords = ["a11y", "accessibility", "aria", "dioxus", "ui"]
+categories = ["gui", "no-std"]
+readme = "README.md"
+edition = "2021"
+rust-version = "1.73"
+exclude = [".github/*"]
+
+[package.metadata.docs.rs]
+all-features = true
+rustdoc-args = ["--cfg", "docsrs"]
+
+[features]
+default = []
+
+[dependencies]
