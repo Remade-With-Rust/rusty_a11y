@@ -8,13 +8,13 @@
 
 > **rusty_a11y** is an open-source accessibility helper toolkit for Rust UI
 > chrome -- **labelled glyphs, ARIA live regions, and status announcements**
-> as small HTML string builders -- pure Rust, zero dependencies, no DOM crate
-> and no JS. Pair with [`thoth`](https://github.com/Remade-With-Rust/thoth)
-> glyphs and [`rusty_tokens`](https://github.com/Remade-With-Rust/rusty_tokens)
-> for a full chrome stack.
+> as small HTML string builders -- pure Rust, no DOM crate and no JS. By
+> default installs [`rusty_alloc`](https://github.com/Remade-With-Rust/rusty_alloc)
+> (opt out below). Pair with [`rusty_symbols`](https://crates.io/crates/rusty_symbols)
+> and [`rusty_tokens`](https://crates.io/crates/rusty_tokens).
 
-> **Status -- v0.1.0.** Pin
-> `rusty_a11y = "0.1"` from crates.io (or git tag `v0.1.0`).
+> **Status -- v0.2.0.** Pin
+> `rusty_a11y = "0.2"` from crates.io (or git tag `v0.2.0`).
 > Requires `alloc` (normal `std` apps already have it). `no_std` + `alloc` ready.
 
 ---
@@ -30,7 +30,8 @@
 | Glyph naming | none | **`label::img`** | a11y |
 | Status updates | silent | **`live` / `status`** | a11y |
 | Escaping | easy to forget | **attribute / text escape** | safe |
-| Dependencies | DOM crates | **none** | maintain |
+| Allocator | system / C | **`rusty_alloc` by default** | opt-out |
+| Dependencies | DOM crates | **none when opted out** | maintain |
 | License | mixed | **MIT** | -- |
 
 ---
@@ -38,12 +39,19 @@
 ## Install
 
 ```toml
-rusty_a11y = "0.1"
-# git:
-# rusty_a11y = { git = "https://github.com/Remade-With-Rust/rusty_a11y.git", tag = "v0.1.0" }
+rusty_a11y = "0.2"
+# bring your own allocator:
+# rusty_a11y = { version = "0.2", default-features = false }
+# hardened:
+# rusty_a11y = { version = "0.2", features = ["secure"] }
 ```
 
-No features required. MSRV: **1.73**.
+| Feature | Default | Provides |
+|---------|---------|----------|
+| `rusty-alloc` | **yes** | [`rusty_alloc`](https://github.com/Remade-With-Rust/rusty_alloc) via [`rusty_alloc_default`](https://crates.io/crates/rusty_alloc_default) |
+| `secure` | no | enables `rusty-alloc` + hardening |
+
+MSRV: **1.73**. Combining with sibling crate defaults is safe (shared allocator seam).
 
 ## Quick start
 
@@ -51,7 +59,7 @@ No features required. MSRV: **1.73**.
 use rusty_a11y::{label, live, status};
 
 fn verified() -> String {
-    // Often paired with thoth::symbols::status::OK in apps
+    // Often paired with rusty_symbols::status::OK in apps
     label::img("\u{2713}", "verified")
 }
 
