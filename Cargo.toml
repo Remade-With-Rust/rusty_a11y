@@ -1,6 +1,6 @@
 [package]
 name = "rusty_a11y"
-version = "0.2.0"
+version = "0.2.1"
 authors = ["Remade With Rust / Mata Network"]
 description = "ARIA HTML helpers for Rust UI chrome — labelled glyphs, live regions, status (Remade With Rust)"
 repository = "https://github.com/Remade-With-Rust/rusty_a11y"
